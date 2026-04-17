@@ -327,6 +327,43 @@ module "org" {
 }
 ```
 
+## Principal Access Boundary (PAB) Policies
+
+Principal Access Boundary (PAB) policies provide a layer of protection that limits the resources a principal can access, even if they have the necessary IAM roles. This is a critical security control for multi-tenant environments and hardening service accounts.
+
+```hcl
+module "org" {
+  source          = "./fabric/modules/organization"
+  organization_id = var.organization_id
+  pab_policies = {
+    restrict-resman = {
+      display_name = "Restrict Resman to Production"
+      rules = [
+        {
+          description = "Allow access only to production hierarchy"
+          effect      = "ALLOW"
+          resources   = ["folders/1234567890"]
+        }
+      ]
+    }
+  }
+}
+```
+
+### Principal Access Boundary (PAB) Policies Factory
+
+PAB policies can be loaded from a directory containing YAML files where each file defines a single policy. The structure of the YAML files is exactly the same as the `pab_policies` variable, and the file name (excluding the `.yaml` extension) is used as the policy ID.
+
+```hcl
+module "org" {
+  source          = "./fabric/modules/organization"
+  organization_id = var.organization_id
+  factories_config = {
+    pab_policies = "configs/pab-policies/"
+  }
+}
+```
+
 ## Hierarchical Firewall Policy Attachments
 
 Hierarchical firewall policies can be managed via the [`net-firewall-policy`](../net-firewall-policy/) module, including support for factories. Once a policy is available, attaching it to the organization can be done either in the firewall policy module itself, or here:

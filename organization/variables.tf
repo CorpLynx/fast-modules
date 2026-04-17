@@ -110,6 +110,7 @@ variable "factories_config" {
     custom_roles                  = optional(string)
     org_policies                  = optional(string)
     org_policy_custom_constraints = optional(string)
+    pab_policies                  = optional(string)
     pam_entitlements              = optional(string)
     scc_mute_configs              = optional(string)
     scc_sha_custom_modules        = optional(string)
