@@ -40,6 +40,7 @@ output "id" {
   description = "Fully qualified organization id."
   value       = var.organization_id
   depends_on = [
+    google_iam_principal_access_boundary_policy.pab_policies,
     google_logging_organization_settings.default,
     google_org_policy_custom_constraint.constraint,
     google_org_policy_policy.default,
@@ -89,6 +90,7 @@ output "organization_id" {
   description = "Organization id dependent on module resources."
   value       = var.organization_id
   depends_on = [
+    google_iam_principal_access_boundary_policy.pab_policies,
     google_org_policy_custom_constraint.constraint,
     google_org_policy_policy.default,
     google_organization_iam_binding.authoritative,
@@ -105,6 +107,11 @@ output "organization_id" {
 output "organization_policies_ids" {
   description = "Map of ORGANIZATION_POLICIES => ID in the organization."
   value       = { for k, v in google_org_policy_policy.default : k => v.id }
+}
+
+output "pab_policy_ids" {
+  description = "Map of PAB policies => ID in the organization."
+  value       = { for k, v in google_iam_principal_access_boundary_policy.pab_policies : k => v.id }
 }
 
 output "scc_custom_sha_modules_ids" {
