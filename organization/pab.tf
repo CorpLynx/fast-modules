@@ -27,19 +27,21 @@ locals {
 }
 
 resource "google_iam_principal_access_boundary_policy" "pab_policies" {
-  provider     = google-beta
-  for_each     = local.pab_policies
-  organization = local.organization_id_numeric
-  location     = "global"
-  display_name = each.value.display_name
-  policy_id    = each.key
+  provider                            = google-beta
+  for_each                            = local.pab_policies
+  organization                        = local.organization_id_numeric
+  location                            = "global"
+  display_name                        = each.value.display_name
+  principal_access_boundary_policy_id = each.key
 
-  dynamic "rules" {
-    for_each = each.value.rules
-    content {
-      description = rules.value.description
-      effect      = rules.value.effect
-      resources   = rules.value.resources
+  details {
+    enforcement_version = coalesce(each.value.enforcement_version, "latest")
+    dynamic "rules" {
+      for_each = each.value.rules
+      content {
+        description = rules.value.description
+        resources   = rules.value.resources
+      }
     }
   }
 }

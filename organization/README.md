@@ -341,8 +341,7 @@ module "org" {
       rules = [
         {
           description = "Allow access only to production hierarchy"
-          effect      = "ALLOW"
-          resources   = ["folders/1234567890"]
+          resources   = ["//cloudresourcemanager.googleapis.com/folders/1234567890"]
         }
       ]
     }

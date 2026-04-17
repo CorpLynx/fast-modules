@@ -15,12 +15,12 @@
  */
 
 variable "pab_policies" {
-  description = "Principal Access Boundary policies, in {ID => {display_name, rules = []}} format."
+  description = "Principal Access Boundary policies, in {ID => {display_name, enforcement_version, rules = []}} format."
   type = map(object({
-    display_name = string
+    display_name        = optional(string)
+    enforcement_version = optional(string)
     rules = list(object({
-      description = string
-      effect      = string
+      description = optional(string)
       resources   = list(string)
     }))
   }))
