@@ -21,6 +21,7 @@ variable "pab_policies" {
     enforcement_version = optional(string)
     rules = list(object({
       description = optional(string)
+      effect      = optional(string, "ALLOW")
       resources   = list(string)
     }))
   }))

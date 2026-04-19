@@ -40,6 +40,7 @@ resource "google_iam_principal_access_boundary_policy" "pab_policies" {
       for_each = each.value.rules
       content {
         description = rules.value.description
+        effect      = coalesce(rules.value.effect, "ALLOW")
         resources   = rules.value.resources
       }
     }
