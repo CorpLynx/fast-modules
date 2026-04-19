@@ -143,7 +143,8 @@ module "projects" {
     each.value.services,
     var.data_merges.services
   ))
-  tags = each.value.tags
+  tags                = each.value.tags
+  pab_policy_bindings = each.value.pab_policy_bindings
   tags_config = {
     ignore_iam = true
   }
@@ -205,7 +206,8 @@ module "projects-iam" {
   tag_bindings = merge(
     each.value.tag_bindings, var.data_merges.tag_bindings
   )
-  tags = each.value.tags
+  tags                = each.value.tags
+  pab_policy_bindings = each.value.pab_policy_bindings
   tags_config = {
     force_context_ids = true
   }

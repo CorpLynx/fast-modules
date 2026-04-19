@@ -131,6 +131,10 @@ variable "folders" {
       }))
     })), {})
     tag_bindings = optional(map(string), {})
+    pab_policy_bindings = optional(map(object({
+      policy_id     = string
+      principal_set = optional(string)
+    })), {})
   }))
   nullable = false
   default  = {}

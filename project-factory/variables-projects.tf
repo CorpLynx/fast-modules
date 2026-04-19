@@ -495,6 +495,10 @@ variable "projects" {
       network_subnet_users     = optional(map(list(string)), {})
     }))
     tag_bindings = optional(map(string), {})
+    pab_policy_bindings = optional(map(object({
+      policy_id     = string
+      principal_set = optional(string)
+    })), {})
     universe = optional(object({
       prefix                         = string
       unavailable_services           = optional(list(string), [])

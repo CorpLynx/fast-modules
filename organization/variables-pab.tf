@@ -28,3 +28,13 @@ variable "pab_policies" {
   default  = {}
   nullable = false
 }
+
+variable "pab_policy_bindings" {
+  description = "Principal Access Boundary policy bindings, in {ID => {policy_id, principal_set}} format."
+  type = map(object({
+    policy_id     = string
+    principal_set = optional(string)
+  }))
+  default  = {}
+  nullable = false
+}

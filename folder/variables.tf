@@ -179,6 +179,7 @@ variable "factories_config" {
   description = "Paths to data files and folders that enable factory functionality."
   type = object({
     org_policies           = optional(string)
+    pab_policy_bindings    = optional(string)
     pam_entitlements       = optional(string)
     scc_mute_configs       = optional(string)
     scc_sha_custom_modules = optional(string)
@@ -243,6 +244,16 @@ variable "org_policies" {
       }), {})
       parameters = optional(string)
     })), [])
+  }))
+  default  = {}
+  nullable = false
+}
+
+variable "pab_policy_bindings" {
+  description = "Principal Access Boundary policy bindings, in {ID => {policy_id, principal_set}} format."
+  type = map(object({
+    policy_id     = string
+    principal_set = optional(string)
   }))
   default  = {}
   nullable = false

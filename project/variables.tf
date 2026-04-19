@@ -204,6 +204,7 @@ variable "factories_config" {
     custom_roles           = optional(string)
     observability          = optional(string)
     org_policies           = optional(string)
+    pab_policy_bindings    = optional(string)
     pam_entitlements       = optional(string)
     quotas                 = optional(string)
     scc_mute_configs       = optional(string)
@@ -273,6 +274,16 @@ variable "org_policies" {
       }), {})
       parameters = optional(string)
     })), [])
+  }))
+  default  = {}
+  nullable = false
+}
+
+variable "pab_policy_bindings" {
+  description = "Principal Access Boundary policy bindings, in {ID => {policy_id, principal_set}} format."
+  type = map(object({
+    policy_id     = string
+    principal_set = optional(string)
   }))
   default  = {}
   nullable = false

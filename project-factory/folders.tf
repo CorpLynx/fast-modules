@@ -65,10 +65,11 @@ module "folder-1" {
       ? v :
       "${var.factories_config.basepath}/${v}"
     ), null)
-    if contains(["org_policies", "scc_sha_custom_modules"], k)
+    if contains(["org_policies", "pab_policy_bindings", "scc_sha_custom_modules"], k)
   }
   org_policies            = lookup(each.value, "org_policies", {})
   pam_entitlements        = lookup(each.value, "pam_entitlements", {})
+  pab_policy_bindings     = lookup(each.value, "pab_policy_bindings", {})
   tag_bindings            = lookup(each.value, "tag_bindings", {})
   assured_workload_config = lookup(each.value, "assured_workload_config", null)
   logging_settings        = lookup(each.value, "logging", null)
@@ -128,10 +129,11 @@ module "folder-2" {
       ? v :
       "${var.factories_config.basepath}/${v}"
     ), null)
-    if contains(["org_policies", "scc_sha_custom_modules"], k)
+    if contains(["org_policies", "pab_policy_bindings", "scc_sha_custom_modules"], k)
   }
   org_policies            = lookup(each.value, "org_policies", {})
   pam_entitlements        = lookup(each.value, "pam_entitlements", {})
+  pab_policy_bindings     = lookup(each.value, "pab_policy_bindings", {})
   tag_bindings            = lookup(each.value, "tag_bindings", {})
   assured_workload_config = lookup(each.value, "assured_workload_config", null)
   logging_settings        = lookup(each.value, "logging", null)
@@ -199,10 +201,11 @@ module "folder-3" {
       ? v :
       "${var.factories_config.basepath}/${v}"
     ), null)
-    if contains(["org_policies", "scc_sha_custom_modules"], k)
+    if contains(["org_policies", "pab_policy_bindings", "scc_sha_custom_modules"], k)
   }
   org_policies            = lookup(each.value, "org_policies", {})
   pam_entitlements        = lookup(each.value, "pam_entitlements", {})
+  pab_policy_bindings     = lookup(each.value, "pab_policy_bindings", {})
   tag_bindings            = lookup(each.value, "tag_bindings", {})
   assured_workload_config = lookup(each.value, "assured_workload_config", null)
   logging_settings        = lookup(each.value, "logging", null)
@@ -270,10 +273,11 @@ module "folder-4" {
       ? v :
       "${var.factories_config.basepath}/${v}"
     ), null)
-    if contains(["org_policies", "scc_sha_custom_modules"], k)
+    if contains(["org_policies", "pab_policy_bindings", "scc_sha_custom_modules"], k)
   }
   org_policies            = lookup(each.value, "org_policies", {})
   pam_entitlements        = lookup(each.value, "pam_entitlements", {})
+  pab_policy_bindings     = lookup(each.value, "pab_policy_bindings", {})
   tag_bindings            = lookup(each.value, "tag_bindings", {})
   assured_workload_config = lookup(each.value, "assured_workload_config", null)
   logging_settings        = lookup(each.value, "logging", null)
