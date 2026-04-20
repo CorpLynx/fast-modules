@@ -21,6 +21,8 @@ This module allows the creation and management of folders, including support for
   - [Security Command Center Mute Configs Factory](#security-command-center-mute-configs-factory)
 - [Cloud Asset Search](#cloud-asset-search)
 - [Cloud Asset Inventory Feeds](#cloud-asset-inventory-feeds)
+- [Principal Access Boundary (PAB) Policy Bindings](#principal-access-boundary-pab-policy-bindings)
+  - [Principal Access Boundary (PAB) Policy Bindings Factory](#principal-access-boundary-pab-policy-bindings-factory)
 - [Tags](#tags)
 - [Files](#files)
 - [Variables](#variables)
@@ -673,6 +675,38 @@ module "folder" {
   }
 }
 # tftest modules=2 resources=3 inventory=feeds.yaml
+```
+
+## Principal Access Boundary (PAB) Policy Bindings
+
+Principal Access Boundary (PAB) policies provide a layer of protection that limits the resources a principal can access. This module allows binding existing PAB policies to the folder.
+
+```hcl
+module "folder" {
+  source = "./fabric/modules/folder"
+  parent = "organizations/1234567890"
+  name   = "Folder name"
+  pab_policy_bindings = {
+    restrict-resman = {
+      policy_id = "organizations/1234567890/locations/global/principalAccessBoundaryPolicies/my-policy"
+    }
+  }
+}
+```
+
+### Principal Access Boundary (PAB) Policy Bindings Factory
+
+PAB policy bindings can be loaded from a directory containing YAML files. The structure of the YAML files is exactly the same as the `pab_policy_bindings` variable.
+
+```hcl
+module "folder" {
+  source = "./fabric/modules/folder"
+  parent = "organizations/1234567890"
+  name   = "Folder name"
+  factories_config = {
+    pab_policy_bindings = "configs/pab-bindings/"
+  }
+}
 ```
 
 ## Tags

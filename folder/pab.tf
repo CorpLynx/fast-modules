@@ -29,7 +29,7 @@ locals {
 resource "google_iam_folders_policy_binding" "pab_bindings" {
   provider          = google-beta
   for_each          = local.pab_policy_bindings
-  folder            = local.folder_id
+  folder            = local.folder_number
   location          = "global"
   policy_kind       = "PRINCIPAL_ACCESS_BOUNDARY"
   policy_binding_id = each.key

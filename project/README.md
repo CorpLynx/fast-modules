@@ -47,6 +47,8 @@ This module implements the creation and management of one GCP project including 
 - [Observability](#observability)
 - [Observability factory](#observability-factory)
 - [Workload Identity Federation](#workload-identity-federation)
+- [Principal Access Boundary (PAB) Policy Bindings](#principal-access-boundary-pab-policy-bindings)
+  - [Principal Access Boundary (PAB) Policy Bindings Factory](#principal-access-boundary-pab-policy-bindings-factory)
 - [Files](#files)
 - [Variables](#variables)
 - [Outputs](#outputs)
@@ -2245,6 +2247,40 @@ module "project" {
 
 <!-- TFDOC OPTS files:1 -->
 <!-- BEGIN TFDOC -->
+## Principal Access Boundary (PAB) Policy Bindings
+
+Principal Access Boundary (PAB) policies provide a layer of protection that limits the resources a principal can access. This module allows binding existing PAB policies to the project.
+
+```hcl
+module "project" {
+  source          = "./fabric/modules/project"
+  billing_account = "123456-123456-123456"
+  name            = "project"
+  parent          = "organizations/1234567890"
+  pab_policy_bindings = {
+    restrict-resman = {
+      policy_id = "organizations/1234567890/locations/global/principalAccessBoundaryPolicies/my-policy"
+    }
+  }
+}
+```
+
+### Principal Access Boundary (PAB) Policy Bindings Factory
+
+PAB policy bindings can be loaded from a directory containing YAML files. The structure of the YAML files is exactly the same as the `pab_policy_bindings` variable.
+
+```hcl
+module "project" {
+  source          = "./fabric/modules/project"
+  billing_account = "123456-123456-123456"
+  name            = "project"
+  parent          = "organizations/1234567890"
+  factories_config = {
+    pab_policy_bindings = "configs/pab-bindings/"
+  }
+}
+```
+
 ## Files
 
 | name | description | resources |

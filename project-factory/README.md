@@ -7,6 +7,7 @@ It supports
 - filesystem-driven folder hierarchy exposing the full configuration options available in the [folder module](../folder/)
 - multiple project creation and management exposing the full configuration options available in the [project module](../project/), including KMS key grants and VPC-SC perimeter membership
 - optional per-project [service accounts and buckets management](#service-accounts-and-buckets) including basic IAM grants
+- per-folder or per-project [Principal Access Boundary (PAB) policy bindings](#principal-access-boundary-pab-policy-bindings)
 - optional [billing budgets](#billing-budgets) factory and budget/project associations
 - cross-referencing of hierarchy folders in projects
 - optional per-project IaC configuration
@@ -214,6 +215,32 @@ automation:
         - $iam_principals:service_accounts/iac-core-0/rw
         - $iam_principals:service_accounts/iac-core-0/ro
         - group:devops@example.org
+```
+
+## Principal Access Boundary (PAB) Policy Bindings
+
+PAB policy bindings can be defined in both folder and project YAML configurations. They are used to restrict the resources a principal can access.
+
+#### Folder Example
+
+In a folder's `.config.yaml`:
+
+```yaml
+name: production
+pab_policy_bindings:
+  restrict-resman:
+    policy_id: "organizations/1234567890/locations/global/principalAccessBoundaryPolicies/my-policy"
+```
+
+#### Project Example
+
+In a project's YAML file:
+
+```yaml
+name: my-project
+pab_policy_bindings:
+  restrict-resman:
+    policy_id: "organizations/1234567890/locations/global/principalAccessBoundaryPolicies/my-policy"
 ```
 
 ## Billing budgets
